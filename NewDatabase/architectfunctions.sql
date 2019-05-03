@@ -56,7 +56,22 @@ end;
 /
 show errors
 
-var char_c char(9);
-exec :char_c := next_key('P00000001');
+create or replace function confirm_buyer (f_name varchar2, l_name varchar2, phone varchar2)
+return number is
+    the_count number;
+begin
+    select count(*)
+    into the_count
+    from person p, phone_numbers ph, buyer b
+    where p.prsn_id = ph.prsn_id and b.buyr_id = p.prsn_id and
+    lname = l_name and fname = f_name and phone_num = phone;
+
+    return the_count;
+end;
+/
+show errors
+
+var char_c number;
+exec :char_c := confirm_buyer('Shaun', 'Johns', '5088675309');
 print char_c;
 
