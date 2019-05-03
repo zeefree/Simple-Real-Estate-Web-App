@@ -21,6 +21,8 @@ function get_filter_listing($conn)
         array_push($city_options, oci_result($city_query, "CITY"));
     }
 
+    oci_free_statement($city_query);
+
     array_push($filter_list, $city_options);
 
     return $filter_list;
@@ -55,11 +57,11 @@ function filter_listing_form($conn)
                 
                 <?php
                 //ignore the first element as that tells us the type
-                for($i = 1; i < count($filter_types); $i++)
+                for($i = 1; $i < count($filter_types); $i++)
                 {
                     //create an option for each possible value
                     ?>
-                        <option value="<?= $filter_types[i]?>"> <?= $filter_types[i]?> </option>
+                        <option value="<?= $filter_types[$i]?>"> <?= $filter_types[$i]?> </option>
 
                     <?php
 

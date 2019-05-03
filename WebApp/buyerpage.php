@@ -23,19 +23,14 @@
 
     if ( ! array_key_exists("username", $_POST) )
     {
-        $_SESSION
+        $_SESSION["user"] =
         // no username in $_POST? they need a login form!
         ?>
   
             
     <?php
         require_once("./forms/newuserfieldset.php");
-    }      
-
-    // otherwise, handle the submitted login form 
-    //    (or try to) -- and show the user some
-    //    lovely employee information
-
+    }
     else
     {
         //get login function
