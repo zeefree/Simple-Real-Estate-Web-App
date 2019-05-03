@@ -15,10 +15,24 @@
 
 <body>
 
-<h1> Connecting PHP to Oracle </h1>
+<h1> Humboldt Simplified Listings </h1>
 
 <?php
     // do you need to ask for username and password?
+    ?>
+    <form id="logout">
+        <input type="submit" name="logout" value="logout"/>
+    </form>
+    <?php
+
+    if(array_key_exists("logout", $_POST))
+    {
+        session_destroy();
+        ?>
+        <p> you have logged out </p>
+        <?php
+    }
+
 
     if ( ! array_key_exists("state", $_SESSION))
     {
@@ -61,7 +75,7 @@
         {
             if($_POST["usertype"] = "newuser")
             {
-                require_once("./forms/newuserform.php");
+                require_once("./forms/userform.php");
                 $_SESSION["state"] = "newuser";
             }
             elseif($_POST["usertype"] = "returnuser")
