@@ -1,0 +1,9 @@
+fieldset
+{
+    float: left;
+}
+
+.clearfloat
+{
+    clear : both;
+}

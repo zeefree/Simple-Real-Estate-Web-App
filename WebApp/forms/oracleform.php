@@ -10,3 +10,4 @@
     </fieldset>
     <input type="submit" name="submit" value="submit"/>
 </form>
+<div class="clearfloat"></div>
