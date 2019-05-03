@@ -15,9 +15,8 @@
 
     <legend> Optionally add a phone number </legend>
 
-      <label for="phonenum">Phone Number: </label>
-      <input type="tel" name="phonenum" id="phonenum" 
-            pattern="[0-9]{10}"/>
+      <label for="phonenum"> Phone Number: </label>
+      <input type="tel" name="phonenum" id="phonenum" pattern="[0-9]{10}" required="required"/>
       <span class="note"> Format: 1234567890 </span>
 
   </fieldset>

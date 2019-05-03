@@ -61,7 +61,7 @@
         {
             if($_POST["usertype"] = "newuser")
             {
-                require_once("./forms/newuserform");
+                require_once("./forms/newuserform.php");
                 $_SESSION["state"] = "newuser";
             }
             elseif($_POST["usertype"] = "returnuser")
@@ -78,7 +78,6 @@
         }
         else
         {
-            //How the heck they get here?
             //Go back to the form
             $_SESSION["state"] = "typeofuser";
             require_once("./forms/buyergreet.php");

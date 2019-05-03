@@ -57,7 +57,7 @@ function createnewbuyer($con, $fname, $lname, $phonenum)
         if (!$committed) 
         {
             $error = oci_error($con);
-            echo 'Phone number wasnt added, likely already in use.';
+            echo 'Commit failed. Oracle reports: ' . $error['message'];
         }
 
         oci_close($con);
