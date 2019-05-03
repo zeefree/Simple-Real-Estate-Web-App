@@ -18,15 +18,20 @@ function confirm_user($conn, $fname, $lname, $phone)
     if($confirmation > 0)
     {
         $person_id_str = 'select prsn_id
-                          from person p, phone_numbers ph
-                          where p.prsn_id = ph.prsn_id 
-                          and ph.phone_num = :phone_num';
+                          from phone_numbers ph
+                          where ph.phone_num = :phone_number';
         
-        $person_id_query = oci_parse($conn, $person_id_query);
+        $person_id_query = oci_parse($conn, $person_id_str);
 
-        oci_bind_by_name($person_id_query, ":phone_num", $phone);
+        oci_bind_by_name($person_id_query, ":phone_number", $phone);
 
-        $prs_id = oci_execute($person_id_query);
+        oci_execute($person_id_query);
+
+        //There will be only one buut it seems safer to just do it this way
+        while(oci_fetch($person_id_query))
+        {
+            $prs_id = oci_result($person_id_query, 'PRSN_ID');
+        }
 
         return $prs_id;
 

@@ -81,11 +81,13 @@
             echo($_POST["usertype"]);
             if($_POST["usertype"] == "newuser")
             {
+                echo("Make a new user");
                 require_once("./forms/userform.php");
                 $_SESSION["state"] = "newuser";
             }
             elseif($_POST["usertype"] == "returnuser")
             {
+                echo("Confirm Identity");
                 require_once("./forms/userform.php");
                 $_SESSION["state"] = "returnuser";
             }
@@ -109,22 +111,30 @@
         {
             require_once("./functions/confirmuser.php");
 
+            $first_name = strip_tags($_POST["fname"]);
+            $last_name = strip_tags($_POST["lname"]);
+            $phone_num = strip_tags($_POST["phonenum"]);
+
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
-            $confirmation = confirm_user($conn, $_POST["fname"], $_POST["lname"], $_POST["phonenum"]);
+            $confirmation = confirm_user($conn, $first_name, $last_name, $phone_num);
 
             if($confirmation == "")
             {
                 ?>
-                <p> who the hek are you? </p>
+                <p> Weren't able to confirm identity, try again </p>
                 <?php
                 require_once("./forms/userform.php");
             }
             else
             {
-                echo($confirmation)
+                $_SESSION["prsn_id"] = $confirmation;
+                $_SESSION["name"] = $first_name;
+
+                
+                require_once("./functions/checklisting.php");
                 ?>
-                <p> oh hi Mark </p>
+                <p> Hello <?= $_SESSION["name"]?>  </p>
                 <?php
                 
                 filter_listing_form($conn);
@@ -138,7 +148,7 @@
         if(array_key_exists("fname", $_POST))
         {
              ?>
-            <p> Create new User </p>
+             <p> Create a new user </p>
             <?php
 
             require_once("./functions/createnewuser.php");
