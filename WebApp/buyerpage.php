@@ -28,18 +28,27 @@
     }
     elseif( $_SESSION["state"] == "oraclelogin")
     {
-        $username = strip_tags($_POST['username']);
+        if (array_key_exists("username", $_POST))
+        {
+            $username = strip_tags($_POST['username']);
 
-        $password = $_POST['password'];
+            $password = $_POST['password'];
         
-        //test connection
-        $conn = oraclecon($username, $password);
+            //test connection
+            $conn = oraclecon($username, $password);
 
-        $_SESSION["username"] = $username;
-        $_SESSION["password"] = $password;
+            $_SESSION["username"] = $username;
+            $_SESSION["password"] = $password;
 
-        $_SESSION["state"] = "typeofuser";
-        require_once("./forms/buyergreet.php");
+            $_SESSION["state"] = "typeofuser";
+            require_once("./forms/buyergreet.php");
+        }
+        else
+        {
+            //Got to next state without the form, so I'll allow them to try again
+            require_once("./functions/oraclecon.php");
+        }
+        
 
     }
     elseif( $_SESSION["state"] == "typeofuser")
