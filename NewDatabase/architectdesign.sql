@@ -15,9 +15,8 @@ drop table Seller cascade constraints;
 create table Seller
 (
     selr_id char(9),
-    prsn_id char(9),
     primary key (selr_id),
-    foreign key (prsn_id) references Person(prsn_id)
+    foreign key (selr_id) references Person(prsn_id)
 );
 --Represents the buyer as a seprate table in case they need more info down the road
 drop table Buyer cascade constraints;
@@ -25,9 +24,8 @@ drop table Buyer cascade constraints;
 create table Buyer
 (
     buyr_id char(9),
-    prsn_id char(9),
     primary key (buyr_id),
-    foreign key (prsn_id) references Person(prsn_id)
+    foreign key (buyr_id) references Person(prsn_id)
 );
 
 drop table Phone_Numbers cascade constraints;
