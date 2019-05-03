@@ -55,7 +55,7 @@ function filter_listing_form($conn)
                 
                 <?php
                 //ignore the first element as that tells us the type
-                for($i = 1; i < count($filter_types); i++)
+                for($i = 1; i < count($filter_types); $i++)
                 {
                     //create an option for each possible value
                     ?>
