@@ -13,7 +13,7 @@
   </fieldset>
   <fieldset>
 
-    <legend> Optionally add a phone number </legend>
+    <legend> Add a phone number </legend>
 
       <label for="phonenum"> Phone Number: </label>
       <input type="tel" name="phonenum" id="phonenum" pattern="[0-9]{10}" required="required"/>

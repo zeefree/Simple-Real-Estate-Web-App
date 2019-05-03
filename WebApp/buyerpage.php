@@ -32,8 +32,6 @@
         <p> you have logged out </p>
         <?php
     }
-
-
     if ( ! array_key_exists("state", $_SESSION))
     {
         require_once("./forms/oracleform.php");
@@ -80,7 +78,7 @@
             }
             elseif($_POST["usertype"] = "returnuser")
             {
-                $_SESSION["state"] = "newuser";
+                $_SESSION["state"] = "returnuser";
             }
             else
             {
@@ -97,16 +95,16 @@
             require_once("./forms/buyergreet.php");
         }
     }
-    else
+    elseif( $_SESSION["state"] == "newuser")
     {
-        //get login function
-        require_once("./functions/oraclecon.php");
-        require_once("./functions/createnewuser.php");
-        require_once("./functions/checklisting.php");
-        
-        //createnewbuyer($conn, $firstname, $lastname);
+        if(array_key_exists("fname", $_POST))
+        {
+            require_once("./functions/createnewuser.php");
 
-        filter_listing_form($conn);
+            $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
+
+            createnewbuyer($conn, $_POST["fname"], $_POST["lname"], $_POST["phone_num"]);
+        }
 
     }
     

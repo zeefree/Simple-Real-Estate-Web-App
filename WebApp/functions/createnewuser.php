@@ -47,11 +47,11 @@ function createnewbuyer($con, $fname, $lname, $phonenum)
         
         $phone_insert_stmt = oci_parse($con, $phone_insert_str);
 
-        oci_bind_by_name($person_insert_stmt, ":phone_num", $phonenum);
+        oci_bind_by_name($phone_insert_stmt, ":phone_num", $phonenum);
 
-        oci_bind_by_name($person_insert_stmt, ":prsn_id", $person_key);
+        oci_bind_by_name($phone_insert_stmt, ":prsn_id", $person_key);
 
-        oci_execute($person_insert_stmt, OCI_DEFAULT);
+        oci_execute($phone_insert_stmt, OCI_DEFAULT);
 
         $committed = oci_commit($con);
         if (!$committed) 
@@ -59,7 +59,7 @@ function createnewbuyer($con, $fname, $lname, $phonenum)
             $error = oci_error($con);
             echo 'Commit failed. Oracle reports: ' . $error['message'];
         }
-
+        oci_free_statement($phone_insert_stmt);
         oci_close($con);
         ?>
         <p> You were inserted as <?php echo($person_key)?> </p>
