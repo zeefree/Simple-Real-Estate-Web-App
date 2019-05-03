@@ -78,7 +78,6 @@
     {
         if(array_key_exists("usertype", $_POST))
         {
-            echo($_POST["usertype"]);
             if($_POST["usertype"] == "newuser")
             {
                 echo("Make a new user");
@@ -168,6 +167,9 @@
     elseif( $_SESSION["state"] == "buildingquery")
     {
         require_once("./functions/getbuildinglist.php");
+        require_once("./functions/checklisting.php");
+
+        filter_listing_form($conn);
 
         $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 

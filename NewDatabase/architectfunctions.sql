@@ -92,8 +92,6 @@ end;
 /
 show errors
 
-
-
 var char_c number;
 exec :char_c := confirm_buyer('Shaun', 'Johns', '5088675309');
 print char_c;
