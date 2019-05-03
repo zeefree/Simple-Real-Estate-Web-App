@@ -51,7 +51,7 @@ function filter_listing_form($conn)
                 //Print the filter_type which is hopefully the key
                 //
                 ?>
-                <?php echo($filter_types[0] + ":") ?> <select name="<?= $filter_types[0]?>">
+                <?php echo($filter_types[0] . ":") ?> <select name="<?= $filter_types[0]?>">
                 
                 <?php
                 //ignore the first element as that tells us the type
