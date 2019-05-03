@@ -50,7 +50,7 @@
         else
         {
             //Got to next state without the form, so I'll allow them to try again
-            require_once("./functions/oraclecon.php");
+            require_once("./forms/oracleform.php");
         }
         
 
