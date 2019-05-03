@@ -94,9 +94,11 @@ begin
     from phone_numbers
     where phone_num = phone_number;
 
-    if(confirm_check > 0) then
+    if(confirm_check = 0) then
         insert into person values
         (person_id, person_type, first_name, last_name);
+
+        dbms_output.put_line('inserted');
 
         insert into phone_numbers values
         (phone_number, person_id);
@@ -106,8 +108,4 @@ begin
 end;
 /
 show errors
-
-var char_c number;
-exec :char_c := confirm_buyer('Shaun', 'Johns', '5088675309');
-print char_c;
 

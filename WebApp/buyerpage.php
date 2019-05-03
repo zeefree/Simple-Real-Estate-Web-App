@@ -173,7 +173,6 @@
         require_once("./functions/getbuildinglist.php");
         require_once("./functions/checklisting.php");
 
-        
 
         $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
