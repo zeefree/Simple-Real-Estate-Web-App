@@ -15,7 +15,7 @@ function get_filter_listing($conn)
 
     $city_options = array();
 
-    while(oci_fetch($city_select_stmt))
+    while(oci_fetch($city_query))
     {
         array_push($city_options, oci_result($city_query, "CITY"));
     }
