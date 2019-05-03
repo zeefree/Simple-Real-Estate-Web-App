@@ -169,12 +169,13 @@
         require_once("./functions/getbuildinglist.php");
         require_once("./functions/checklisting.php");
 
-        filter_listing_form($conn);
+        
 
         $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
         //generate a list of buildings using the previous given city value as a filter
         getbuildinglist($conn, $_POST["city"]);
+        filter_listing_form($conn);
     }
 
     
