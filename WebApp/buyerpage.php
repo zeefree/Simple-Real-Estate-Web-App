@@ -85,6 +85,7 @@
             }
             elseif($_POST["usertype"] = "returnuser")
             {
+                require_once("./forms/userform.php");
                 $_SESSION["state"] = "returnuser";
             }
             else
@@ -99,6 +100,36 @@
             //Go back to the form
             $_SESSION["state"] = "typeofuser";
             require_once("./forms/buyergreet.php");
+        }
+    }
+    elseif($_SESSION["state"] == "returnuser")
+    {
+        if(array_key_exists("fname", $_POST))
+        {
+            require_once("./functions/confirmuser.php");
+
+            $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
+
+            $confirmation = confirm_user($conn, $_POST["fname"], $_POST["lname"], $_POST["phonenum"]);
+
+            if($confirmation)
+            {
+                ?>
+                <p> oh hi Mark </p>
+                <?php
+
+                filter_listing_form($conn);
+
+                oci_close($conn);
+                $_SESSION["state"] = "buildingquery"; 
+                
+            }
+            else
+            {
+                ?>
+                <p> who the hek are you? </p>
+                <?php
+            }
         }
     }
     elseif( $_SESSION["state"] == "newuser")
@@ -128,8 +159,8 @@
 
         //generate a list of buildings using the previous given city value as a filter
         getbuildinglist($conn, $_POST["city"]);
-        
     }
+
     
     require_once("328footer.html");
 ?>  
