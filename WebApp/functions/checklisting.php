@@ -51,7 +51,7 @@ function filter_listing_form($conn)
                 //Print the filter_type which is hopefully the key
                 //
                 ?>
-                <?php echo($filter_types[0] + ":") ?> <select name="<?= $filter_types?>">
+                <?php echo($filter_types[0] + ":") ?> <select name="<?= $filter_types[0]?>">
                 
                 <?php
                 //ignore the first element as that tells us the type
@@ -59,7 +59,7 @@ function filter_listing_form($conn)
                 {
                     //create an option for each possible value
                     ?>
-                        <option value="<?= $filter_types?>"> <?= $filter_types?> </option>
+                        <option value="<?= $filter_types[i]?>"> <?= $filter_types[i]?> </option>
 
                     <?php
 
