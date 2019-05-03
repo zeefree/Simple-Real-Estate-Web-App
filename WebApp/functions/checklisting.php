@@ -11,7 +11,7 @@ function get_filter_listing($conn)
 
     $city_query = oci_parse($conn, $city_select_str);
 
-     oci_execute($city_select_stmt);
+    oci_execute($city_query);
 
     $city_options = array();
 
