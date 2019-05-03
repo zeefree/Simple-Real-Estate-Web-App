@@ -41,6 +41,7 @@
         //get login function
         require_once("./functions/oraclecon.php");
         require_once("./functions/createnewuser.php");
+        require_once("./functions/checklisting.php");
 
         $username = strip_tags($_POST['username']);
 
@@ -59,7 +60,9 @@
 
         $lastname = strip_tags($_POST["lname"]);
 
-        createnewbuyer($conn, $firstname, $lastname);
+        //createnewbuyer($conn, $firstname, $lastname);
+
+        filter_listing_form($con);
 
         // if I get here -- I connected!
 
