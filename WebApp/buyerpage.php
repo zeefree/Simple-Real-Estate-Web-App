@@ -89,7 +89,6 @@
             }
             else
             {
-                //How the heck they get here?
                 //Go back to the form
                 $_SESSION["state"] = "typeofuser";
                 require_once("./forms/buyergreet.php");
