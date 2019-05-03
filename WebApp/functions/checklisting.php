@@ -11,7 +11,7 @@ function get_filter_listing($conn)
 
     $city_select_stmt = oci_parse($conn, $city_select_str);
 
-    $city_query = oci_execute($city_select_stmt, OCI_DEFAULT);
+    $city_query = oci_execute($city_select_stmt);
 
     $city_options = array();
 
@@ -21,6 +21,8 @@ function get_filter_listing($conn)
     }
 
     array_push($filter_list, $city_options);
+
+    return $filter_list;
 
     //step 2 get the distinct bed counts
 
