@@ -78,12 +78,13 @@
     {
         if(array_key_exists("usertype", $_POST))
         {
-            if($_POST["usertype"] = "newuser")
+            echo($_POST["usertype"]);
+            if($_POST["usertype"] == "newuser")
             {
                 require_once("./forms/userform.php");
                 $_SESSION["state"] = "newuser";
             }
-            elseif($_POST["usertype"] = "returnuser")
+            elseif($_POST["usertype"] == "returnuser")
             {
                 require_once("./forms/userform.php");
                 $_SESSION["state"] = "returnuser";
@@ -117,12 +118,12 @@
                 ?>
                 <p> oh hi Mark </p>
                 <?php
-
+                require_once("./functions/checklisting.php");
                 filter_listing_form($conn);
 
                 oci_close($conn);
                 $_SESSION["state"] = "buildingquery"; 
-                
+
             }
             else
             {
@@ -136,7 +137,10 @@
     {
         if(array_key_exists("fname", $_POST))
         {
-            
+             ?>
+            <p> Create new User </p>
+            <?php
+
             require_once("./functions/createnewuser.php");
 
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);

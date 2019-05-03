@@ -1,7 +1,7 @@
 <?php
 function confirm_user($conn, $fname, $lname, $phone)
 {
-    $confirm_str = 'begin :confirm = confirm_buyer(:firstname, :lastname, :phone_num)';
+    $confirm_str = 'begin :confirm := confirm_buyer(:firstname, :lastname, :phone_num); end;';
 
     $confirm_query = oci_parse($conn, $confirm_str);
 
