@@ -27,7 +27,6 @@
 
     if(array_key_exists("logout", $_POST))
     {
-        session_destroy();
         ?>
         <p> you have logged out </p>
         <?php
