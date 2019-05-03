@@ -22,7 +22,7 @@
 
     if ( ! array_key_exists("state", $_SESSION))
     {
-        require_once("./functions/oraclecon.php");
+        require_once("./forms/oracleform.php");
         $_SESSION["state"] = "oraclelogin";
         // no username in $_POST? they need a login form!
     }
@@ -30,12 +30,16 @@
     {
         if (array_key_exists("username", $_POST))
         {
+            require_once("./functions/oraclecon.php");
+
             $username = strip_tags($_POST['username']);
 
             $password = $_POST['password'];
         
             //test connection
             $conn = oraclecon($username, $password);
+
+            oci_close($conn);
 
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
@@ -86,16 +90,10 @@
         require_once("./functions/oraclecon.php");
         require_once("./functions/createnewuser.php");
         require_once("./functions/checklisting.php");
-
         
-
         //createnewbuyer($conn, $firstname, $lastname);
 
         filter_listing_form($conn);
-
-        // if I get here -- I connected!
-
-       
 
     }
     
