@@ -110,8 +110,22 @@
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
             createnewbuyer($conn, $_POST["fname"], $_POST["lname"], $_POST["phonenum"]);
-        }
 
+            require_once("./functions/checklisting.php");
+
+            oci_close($conn);
+            $_SESSION["state"] = "buildingquery"; 
+        }
+    }
+    elseif( $_SESSION["state"] == "buildingquery")
+    {
+        require_once("./functions/getbuildinglist.php");
+
+        $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
+        
+        //generate a list of buildings using the previous given city value as a filter
+        getbuildinglist($conn, $_POST["city"]);
+        
     }
     
     require_once("328footer.html");
