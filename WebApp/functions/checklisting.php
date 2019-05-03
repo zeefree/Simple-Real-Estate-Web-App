@@ -13,7 +13,8 @@ function get_filter_listing($conn)
 
     oci_execute($city_query);
 
-    $city_options = array();
+    //store the first thing as the filter type for later access
+    $city_options = array('city');
 
     while(oci_fetch($city_query))
     {
@@ -48,11 +49,13 @@ function filter_listing_form($conn)
             {
                 //Get each array
                 //Print the filter_type which is hopefully the key
+                //
                 ?>
-                <?php echo(key($filter_types) + ":") ?> <select name="<?= $filter_types?>">
+                <?php echo($filter_types[0] + ":") ?> <select name="<?= $filter_types?>">
                 
                 <?php
-                foreach($filter_types as $filter_value)
+                //ignore the first element as that tells us the type
+                for($i = 1; i < count($filter_types); i++)
                 {
                     //create an option for each possible value
                     ?>
