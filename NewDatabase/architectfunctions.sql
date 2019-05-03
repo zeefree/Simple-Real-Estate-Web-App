@@ -71,6 +71,29 @@ end;
 /
 show errors
 
+create or replace procedure create_person_with_phone(person_id char, person_type char,first_name varchar2, last_name varchar2, phone_number char) as
+    confirm_check number;
+begin
+    select count(*)
+    into confirm_check
+    from phone_numbers
+    where phone_num = phone_number;
+
+    if(confirm_check > 0) then
+        insert into person values
+        (person_id, person_type, first_name, last_name);
+
+        insert into phone_numbers values
+        (phone_number, person_id);
+    else 
+        raise_application_error(-20101, 'Phone Number already in use');
+    end if;
+end;
+/
+show errors
+
+
+
 var char_c number;
 exec :char_c := confirm_buyer('Shaun', 'Johns', '5088675309');
 print char_c;
