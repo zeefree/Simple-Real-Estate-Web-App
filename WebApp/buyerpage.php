@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION["state"] = "start";
 ?>
 <!DOCTYPE html>
 <html  xmlns="http://www.w3.org/1999/xhtml">
@@ -21,7 +20,7 @@
 <?php
     // do you need to ask for username and password?
 
-    if ( $_SESSION["state"] == "start")
+    if ( ! array_key_exists("state", $_SESSION))
     {
         require_once("./functions/oraclecon.php");
         $_SESSION["state"] = "oraclelogin";
