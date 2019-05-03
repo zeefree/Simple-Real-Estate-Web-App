@@ -41,36 +41,6 @@ end;
 /
 show errors
 
-create or replace function next_seller_key return char is
-    prev_key char(9);
-    new_key char(9);
-begin
-    select max(selr_id)
-    into prev_key
-    from seller;
-
-    new_key := next_key(prev_key);
-
-    return new_key;
-end;
-/
-show errors
-
-create or replace function next_buyer_key return char is
-    prev_key char(9);
-    new_key char(9);
-begin
-    select max(buyr_id)
-    into prev_key
-    from buyer;
-
-    new_key := next_key(prev_key);
-
-    return new_key;
-end;
-/
-show errors
-
 create or replace function next_building_key return char is
     prev_key char(9);
     new_key char(9);
@@ -86,13 +56,7 @@ end;
 /
 show errors
 
-
 var char_c char(9);
 exec :char_c := next_key('P00000001');
 print char_c;
-
-var char_d char(9);
-exec :char_d := next_seller_key;
-print char_d;
-
 
