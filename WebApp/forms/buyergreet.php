@@ -6,9 +6,8 @@
       <input type="radio" name="usertype" id="newusr" value="newuser" required="required" /> 
 
       <label for="returnusr"> Returning User: </label>
-      <input type="radio" name="usertype" value="returnusr" id="returnusr" />
+      <input type="radio" name="usertype" value="returnusr" id="returnuser" />
       
   </fieldset>
     <input type="submit" name="submit" value="submit"/>
-
 </form>

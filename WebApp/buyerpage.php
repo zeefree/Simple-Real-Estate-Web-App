@@ -23,7 +23,7 @@
 
     if ( $_SESSION["state"] == "start")
     {
-        require_once("./forms/newuserfieldset.php");
+        require_once("./functions/oraclecon.php");
         $_SESSION["state"] = "oraclelogin";
         // no username in $_POST? they need a login form!
     }
@@ -39,6 +39,38 @@
         $_SESSION["username"] = $username;
         $_SESSION["password"] = $password;
 
+        $_SESSION["state"] = "typeofuser";
+        require_once("./forms/buyergreet.php");
+
+    }
+    elseif( $_SESSION["state"] == "typeofuser")
+    {
+        if(array_key_exists("usertype", $_POST))
+        {
+            if($_POST["usertype"] = "newuser")
+            {
+                require_once("./forms/newuserform");
+                $_SESSION["state"] = "newuser";
+            }
+            elseif($_POST["usertype"] = "returnuser")
+            {
+                $_SESSION["state"] = "newuser";
+            }
+            else
+            {
+                //How the heck they get here?
+                //Go back to the form
+                $_SESSION["state"] = "typeofuser";
+                require_once("./forms/buyergreet.php");
+            }
+        }
+        else
+        {
+            //How the heck they get here?
+            //Go back to the form
+            $_SESSION["state"] = "typeofuser";
+            require_once("./forms/buyergreet.php");
+        }
     }
     else
     {
