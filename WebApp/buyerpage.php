@@ -62,7 +62,7 @@
 
         //createnewbuyer($conn, $firstname, $lastname);
 
-        filter_listing_form($con);
+        filter_listing_form($conn);
 
         // if I get here -- I connected!
 

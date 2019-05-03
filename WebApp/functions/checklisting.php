@@ -1,6 +1,6 @@
 <?php
 //build the array we need for the form
-function get_filter_listing($con)
+function get_filter_listing($conn)
 {
     $filter_list;
 
@@ -28,9 +28,9 @@ function get_filter_listing($con)
 
 
 // Genearate a form with a list of filters with dropdowns of potential options
-function filter_listing_form($con)
+function filter_listing_form($conn)
 {
-    $filter_array = get_filter_listing($con)
+    $filter_array = get_filter_listing($conn)
     ?>
     <form method="post" action="<?= htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES) ?>">
         <fieldset>
