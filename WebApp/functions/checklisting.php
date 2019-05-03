@@ -2,18 +2,18 @@
 //build the array we need for the form
 function get_filter_listing($conn)
 {
-    $filter_list;
+    $filter_list = array();
 
     //step 1 get the distinct city names
     $city_select_str = 'select distinct city 
                         from building
                         order by city;';
 
-    $city_select_stmt = oci_parse($conn, $city_select_stmt);
+    $city_select_stmt = oci_parse($conn, $city_select_str);
 
     $city_query = oci_execute($city_select_stmt, OCI_DEFAULT);
 
-    $city_options;
+    $city_options = array();
 
     while(oci_fetch($city_select_stmt))
     {
