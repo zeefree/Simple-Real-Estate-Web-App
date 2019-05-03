@@ -67,9 +67,10 @@ function filter_listing_form($conn)
             }
         ?>
         </fieldset>
+        <div class="clearfloat"></div>
         <input type="submit" name="submit" value="submit"/>
     </form>
-    <div class="clearfloat"></div>
+    
 <?php
 }
 ?>

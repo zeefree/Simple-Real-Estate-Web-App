@@ -9,6 +9,6 @@
       <input type="radio" name="usertype" value="returnuser" id="returnuser" />
       
   </fieldset>
+    <div class="clearfloat"></div>
     <input type="submit" name="submit" value="submit"/>
 </form>
-<div class="clearfloat"></div>

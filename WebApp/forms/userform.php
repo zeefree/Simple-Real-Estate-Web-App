@@ -20,7 +20,7 @@
       <span class="note"> Format: 1234567890 </span>
 
   </fieldset>
-
+    <div class="clearfloat"></div>
     <input type="submit" name="submit" value="submit"/>
 
 </form>

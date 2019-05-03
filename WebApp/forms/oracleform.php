@@ -8,6 +8,6 @@
         <label for="password"> Password: </label>
         <input type="password" name="password" id="password" required="required" />
     </fieldset>
+    <div class="clearfloat"></div>
     <input type="submit" name="submit" value="submit"/>
 </form>
-<div class="clearfloat"></div>
