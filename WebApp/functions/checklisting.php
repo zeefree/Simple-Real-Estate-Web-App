@@ -7,7 +7,7 @@ function get_filter_listing($conn)
     //step 1 get the distinct city names
     $city_select_str = 'select distinct city 
                         from building
-                        order by city;';
+                        order by city';
 
     $city_select_stmt = oci_parse($conn, $city_select_str);
 
