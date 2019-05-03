@@ -1,5 +1,6 @@
 <?php
     session_start();
+    
 ?>
 <!DOCTYPE html>
 <html  xmlns="http://www.w3.org/1999/xhtml">
@@ -23,8 +24,9 @@
     <form id="logout" method="post" action="<?= htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES) ?>">
         <input type="submit" name="logout" value="logout"/>
     </form>
+    
     <?php
-
+    require_once("./functions/oraclecon.php");
 
     if ( ! array_key_exists("state", $_SESSION))
     {
@@ -104,7 +106,7 @@
     {
         if(array_key_exists("fname", $_POST))
         {
-            require_once("./functions/oraclecon.php");
+            
             require_once("./functions/createnewuser.php");
 
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
@@ -112,6 +114,8 @@
             createnewbuyer($conn, $_POST["fname"], $_POST["lname"], $_POST["phonenum"]);
 
             require_once("./functions/checklisting.php");
+
+            filter_listing_form($conn);
 
             oci_close($conn);
             $_SESSION["state"] = "buildingquery"; 
@@ -122,7 +126,7 @@
         require_once("./functions/getbuildinglist.php");
 
         $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
-        
+
         //generate a list of buildings using the previous given city value as a filter
         getbuildinglist($conn, $_POST["city"]);
         

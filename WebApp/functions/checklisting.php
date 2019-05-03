@@ -67,6 +67,7 @@ function filter_listing_form($conn)
             }
         ?>
         </fieldset>
+        <input type="submit" name="submit" value="submit"/>
     </form>
 <?php
 }
