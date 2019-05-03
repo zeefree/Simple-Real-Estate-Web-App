@@ -9,9 +9,9 @@ function get_filter_listing($conn)
                         from building
                         order by city';
 
-    $city_select_stmt = oci_parse($conn, $city_select_str);
+    $city_query = oci_parse($conn, $city_select_str);
 
-    $city_query = oci_execute($city_select_stmt);
+     oci_execute($city_select_stmt);
 
     $city_options = array();
 
