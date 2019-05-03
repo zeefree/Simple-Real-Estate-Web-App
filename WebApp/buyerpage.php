@@ -113,24 +113,24 @@
 
             $confirmation = confirm_user($conn, $_POST["fname"], $_POST["lname"], $_POST["phonenum"]);
 
-            if($confirmation)
-            {
-                ?>
-                <p> oh hi Mark </p>
-                <?php
-                require_once("./functions/checklisting.php");
-                filter_listing_form($conn);
-
-                oci_close($conn);
-                $_SESSION["state"] = "buildingquery"; 
-
-            }
-            else
+            if($confirmation == "")
             {
                 ?>
                 <p> who the hek are you? </p>
                 <?php
+                require_once("./forms/userform.php");
             }
+            else
+            {
+                echo($confirmation)
+                ?>
+                <p> oh hi Mark </p>
+                <?php
+                
+                filter_listing_form($conn);
+                $_SESSION["state"] = "buildingquery"; 
+            }
+            oci_close($conn);
         }
     }
     elseif( $_SESSION["state"] == "newuser")

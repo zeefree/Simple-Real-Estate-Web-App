@@ -13,13 +13,29 @@ function confirm_user($conn, $fname, $lname, $phone)
 
     oci_execute($confirm_query);
 
+    oci_free_statement($confirm_query);
+
     if($confirmation > 0)
     {
-        return true;
-    }
+        $person_id_str = 'select prsn_id
+                          from person p, phone_numbers ph
+                          where p.prsn_id = ph.prsn_id 
+                          and ph.phone_num = :phone_num';
+        
+        $person_id_query = oci_parse($conn, $person_id_query);
+
+        oci_bind_by_name($person_id_query, ":phone_num", $phone);
+
+        $prs_id = oci_execute($person_id_query);
+
+        return $prs_id;
+
+        oci_free_statement($person_id_query);
+
+    }   
     else
     {
-        return false;
+        return "";
     }
     
 }
