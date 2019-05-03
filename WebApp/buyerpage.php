@@ -20,22 +20,28 @@
 <?php
     // do you need to ask for username and password?
     ?>
-    <form id="logout">
+    <form id="logout" method="post" action="<?= htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES) ?>">
         <input type="submit" name="logout" value="logout"/>
     </form>
     <?php
 
-    if(array_key_exists("logout", $_POST))
-    {
-        ?>
-        <p> you have logged out </p>
-        <?php
-    }
+
     if ( ! array_key_exists("state", $_SESSION))
     {
         require_once("./forms/oracleform.php");
         $_SESSION["state"] = "oraclelogin";
         // no username in $_POST? they need a login form!
+    }
+    elseif(array_key_exists("logout", $_POST))
+    {
+        
+        ?>
+        <p> you have logged out </p>
+        <?php
+        require_once("328footer.html");
+        session_destroy();
+        $_POST = array();
+
     }
     elseif( $_SESSION["state"] == "oraclelogin")
     {
@@ -98,11 +104,12 @@
     {
         if(array_key_exists("fname", $_POST))
         {
+            require_once("./functions/oraclecon.php");
             require_once("./functions/createnewuser.php");
 
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
-            createnewbuyer($conn, $_POST["fname"], $_POST["lname"], $_POST["phone_num"]);
+            createnewbuyer($conn, $_POST["fname"], $_POST["lname"], $_POST["phonenum"]);
         }
 
     }

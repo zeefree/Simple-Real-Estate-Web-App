@@ -42,7 +42,7 @@ function createnewbuyer($con, $fname, $lname, $phonenum)
         //Part 3 add phone number
         oci_free_statement($person_insert_stmt);
 
-        $phone_insert_stmt = 'insert into phone_numbers values
+        $phone_insert_str = 'insert into phone_numbers values
                               (:phone_num, :prsn_id)';
         
         $phone_insert_stmt = oci_parse($con, $phone_insert_str);
