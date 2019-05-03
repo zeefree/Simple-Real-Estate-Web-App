@@ -21,15 +21,24 @@
 <?php
     // do you need to ask for username and password?
 
-    if ( ! array_key_exists("username", $_POST) )
+    if ( $_SESSION["state"] == "start")
     {
-        $_SESSION["user"] =
-        // no username in $_POST? they need a login form!
-        ?>
-  
-            
-    <?php
         require_once("./forms/newuserfieldset.php");
+        $_SESSION["state"] = "oraclelogin";
+        // no username in $_POST? they need a login form!
+    }
+    elseif( $_SESSION["state"] == "oraclelogin")
+    {
+        $username = strip_tags($_POST['username']);
+
+        $password = $_POST['password'];
+        
+        //test connection
+        $conn = oraclecon($username, $password);
+
+        $_SESSION["username"] = $username;
+        $_SESSION["password"] = $password;
+
     }
     else
     {
@@ -38,22 +47,7 @@
         require_once("./functions/createnewuser.php");
         require_once("./functions/checklisting.php");
 
-        $username = strip_tags($_POST['username']);
-
-        // the ONLY thing I am doing with this is
-        //    trying to log in -- so I HOPE this is OK
-
-        $password = $_POST['password'];
-
-        // set up connection string
-
-        $conn = oraclecon($username, $password);
-
-        $password = NULL; // I won't be using this anymore
-
-        $firstname = strip_tags($_POST["fname"]);
-
-        $lastname = strip_tags($_POST["lname"]);
+        
 
         //createnewbuyer($conn, $firstname, $lastname);
 
