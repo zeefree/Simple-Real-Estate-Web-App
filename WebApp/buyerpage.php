@@ -11,7 +11,7 @@
 
     <link href="http://users.humboldt.edu/smtuttle/styles/normalize.css" 
           type="text/css" rel="stylesheet" />
-    <link src="./styles/style.css" type="text/css" rel="stylesheet" />
+    <link href="./styles/style.css" type="text/css" rel="stylesheet" />
 </head> 
 
 <body>
