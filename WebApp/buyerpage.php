@@ -64,7 +64,7 @@
             $_SESSION["password"] = $password;
 
             $_SESSION["state"] = "typeofuser";
-            require_once("./forms/buyergreet.php");
+            require_once("./forms/greeter.php");
         }
         else
         {
@@ -94,14 +94,14 @@
             {
                 //Go back to the form
                 $_SESSION["state"] = "typeofuser";
-                require_once("./forms/buyergreet.php");
+                require_once("./forms/greeter.php");
             }
         }
         else
         {
             //Go back to the form
             $_SESSION["state"] = "typeofuser";
-            require_once("./forms/buyergreet.php");
+            require_once("./forms/greeter.php");
         }
     }
     elseif($_SESSION["state"] == "returnuser")
@@ -116,7 +116,7 @@
 
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
-            $confirmation = confirm_user($conn, $first_name, $last_name, $phone_num);
+            $confirmation = confirm_buyer($conn, $first_name, $last_name, $phone_num);
 
             if($confirmation == "")
             {
@@ -150,11 +150,15 @@
              <p> Create a new user </p>
             <?php
 
+            $first_name = strip_tags($_POST["fname"]);
+            $last_name = strip_tags($_POST["lname"]);
+            $phone_num = strip_tags($_POST["phonenum"]);
+            
             require_once("./functions/createnewuser.php");
 
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
-            createnewbuyer($conn, $_POST["fname"], $_POST["lname"], $_POST["phonenum"]);
+            createnewbuyer($conn, $first_name, $last_name, $phone_num);
 
             require_once("./functions/checklisting.php");
 

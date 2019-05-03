@@ -71,6 +71,21 @@ end;
 /
 show errors
 
+create or replace function confirm_seller (f_name varchar2, l_name varchar2, phone varchar2)
+return number is
+    the_count number;
+begin
+    select count(*)
+    into the_count
+    from person p, phone_numbers ph, seller s
+    where p.prsn_id = ph.prsn_id and s.selr_id = p.prsn_id and
+    lname = l_name and fname = f_name and phone_num = phone;
+
+    return the_count;
+end;
+/
+show errors
+
 create or replace procedure create_person_with_phone(person_id char, person_type char,first_name varchar2, last_name varchar2, phone_number char) as
     confirm_check number;
 begin
