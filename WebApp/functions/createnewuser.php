@@ -15,55 +15,42 @@ function createnewbuyer($con, $fname, $lname, $phonenum)
 
 
         //Part 2 insert into person table which has a trigger to make the seller row as well
-        $person_insert_str = 'insert into person values
-                             (:prsn_key, :p_type, :first_name, :last_name)';
+        $prsn_phn_insert_str = 'begin create_person_with_phone(:prsn_key, :p_type, 
+                                :first_name, :last_name, :phone_num); end;';
 
-        $person_insert_stmt = oci_parse($con, $person_insert_str);   
+        $person_type = 'b';                      
 
-        $person_type = 'b';
+        $prsn_phn_stmt = oci_parse($con, $prsn_phn_insert_str);   
         
-        oci_bind_by_name($person_insert_stmt, ":prsn_key", $person_key);
+        oci_bind_by_name($prsn_phn_stmt, ":prsn_key", $person_key);
 
-        oci_bind_by_name($person_insert_stmt, ":p_type", $person_type);
+        oci_bind_by_name($prsn_phn_stmt, ":p_type", $person_type);
 
-        oci_bind_by_name($person_insert_stmt, ":first_name", $fname);
+        oci_bind_by_name($prsn_phn_stmt, ":first_name", $fname);
 
-        oci_bind_by_name($person_insert_stmt, ":last_name", $lname);
+        oci_bind_by_name($prsn_phn_stmt, ":last_name", $lname);
 
-        oci_execute($person_insert_stmt, OCI_DEFAULT);
+        oci_bind_by_name($prsn_phn_stmt, ":phone_num", $phonenum);
+
+        $execute = oci_execute($prsn_phn_stmt, OCI_DEFAULT);
+
+        if(! $execute)
+        {
+            //weren't able to execute don't return a key
+            $person_key = "";
+        }
 
         $committed = oci_commit($con);
+
+        //Needed for insertion and while I'm not doing an insertion query, the procedure does
+        //So I'm going to leave it here
         if (!$committed) 
         {
             $error = oci_error($con);
             echo 'Commit failed. Oracle reports: ' . $error['message'];
         }
 
-        //Part 3 add phone number
-        oci_free_statement($person_insert_stmt);
-
-        $phone_insert_str = 'insert into phone_numbers values
-                              (:phone_num, :prsn_id)';
-        
-        $phone_insert_stmt = oci_parse($con, $phone_insert_str);
-
-        oci_bind_by_name($phone_insert_stmt, ":phone_num", $phonenum);
-
-        oci_bind_by_name($phone_insert_stmt, ":prsn_id", $person_key);
-
-        oci_execute($phone_insert_stmt, OCI_DEFAULT);
-
-        $committed = oci_commit($con);
-        if (!$committed) 
-        {
-            $error = oci_error($con);
-            echo 'Commit failed. Oracle reports: ' . $error['message'];
-        }
-        oci_free_statement($phone_insert_stmt);
-        oci_close($con);
-        ?>
-        <p> You were inserted as <?php echo($person_key)?> </p>
-        <?php
+        return $person_key;
 }
     
 

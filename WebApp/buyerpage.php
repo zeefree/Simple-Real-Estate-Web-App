@@ -146,10 +146,6 @@
     {
         if(array_key_exists("fname", $_POST))
         {
-             ?>
-             <p> Create a new user </p>
-            <?php
-
             $first_name = strip_tags($_POST["fname"]);
             $last_name = strip_tags($_POST["lname"]);
             $phone_num = strip_tags($_POST["phonenum"]);
@@ -158,7 +154,17 @@
 
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
-            createnewbuyer($conn, $first_name, $last_name, $phone_num);
+            $new_key = createnewbuyer($conn, $first_name, $last_name, $phone_num);
+            if($new_key = "")
+            {
+                //Weren't able to insert person
+                ?>
+                <p> Weren't able to create a profile, try again? </p>
+
+                <?php
+                 $_SESSION["state"] = "newuser";
+                 header("Refresh:0");
+            }
 
             require_once("./functions/checklisting.php");
 
@@ -166,6 +172,12 @@
 
             oci_close($conn);
             $_SESSION["state"] = "buildingquery"; 
+        }
+        else
+        {
+            $_SESSION["state"] = "newuser";
+            header("Refresh:0");
+
         }
     }
     elseif( $_SESSION["state"] == "buildingquery")
