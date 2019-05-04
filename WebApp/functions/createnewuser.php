@@ -34,6 +34,8 @@ function createnewbuyer($con, $fname, $lname, $phonenum)
 
         $execute = oci_execute($prsn_phn_stmt, OCI_DEFAULT);
 
+
+        echo($execute);
         if(! $execute)
         {
             //weren't able to execute don't return a key

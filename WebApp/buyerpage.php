@@ -155,7 +155,11 @@
             $conn = oraclecon($_SESSION["username"], $_SESSION["password"]);
 
             $new_key = createnewbuyer($conn, $first_name, $last_name, $phone_num);
-            if($new_key = "")
+            ?>
+            <p> Hello <?= $new_key?>  </p>
+
+            <?php
+            if($new_key == "")
             {
                 //Weren't able to insert person
                 ?>
@@ -165,13 +169,16 @@
                  $_SESSION["state"] = "newuser";
                  header("Refresh:0");
             }
+            else
+            {
+                require_once("./functions/checklisting.php");
 
-            require_once("./functions/checklisting.php");
+                filter_listing_form($conn);
+    
+                oci_close($conn);
+                $_SESSION["state"] = "buildingquery"; 
+            }
 
-            filter_listing_form($conn);
-
-            oci_close($conn);
-            $_SESSION["state"] = "buildingquery"; 
         }
         else
         {
